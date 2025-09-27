@@ -1,0 +1,22 @@
+services:
+  section13-app:
+    build: .
+    container_name: section13-classifier
+    working_dir: /workspace
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/workspace
+    environment:
+      - FLASK_APP=classifier.py 
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1             # HMRを有効化
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
