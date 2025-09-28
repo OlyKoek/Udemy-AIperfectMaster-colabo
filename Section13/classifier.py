@@ -5,6 +5,13 @@ from werkzeug.utils import secure_filename
 from tensorflow.keras.models import Sequential, load_model
 from PIL import Image
 import numpy as np
+import tensorflow as tf
+
+# GPUメモリの増殖対策
+gpus = tf.config.list_physical_devices('GPU')
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
+
 
 UPLOAD_FOLDER = "./static/images/"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
